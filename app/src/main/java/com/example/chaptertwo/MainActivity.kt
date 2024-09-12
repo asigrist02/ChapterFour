@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.example.chaptertwo.databinding.ActivityMainBinding
 
+
+
 class MainActivity : AppCompatActivity() {
     private lateinit var trueButton: Button
     private lateinit var falseButton: Button
@@ -71,6 +73,23 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
 
         }
+        binding.previousButton.setOnClickListener {
+            currentIndex = if (currentIndex - 1 < 0) {
+                questionBank.size - 1
+            } else {
+                currentIndex - 1
+
+            }
+            updateQuestion()
+        }
+        // This next bit of code will add an OnClickListener for the TextView
+        binding.questionTextView.setOnClickListener {
+            currentIndex = (currentIndex + 1) % questionBank.size
+            // val questionTextResId = questionBank[currentIndex].textResId
+            // binding.questionTextView.setText(questionTextResId)
+            updateQuestion()
+        }
+
 
       //  val questionTextResId = questionBank [currentIndex].textResId
       //  binding.questionTextView.setText(questionTextResId)
