@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ChapterOne" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Base.Theme.ChapterThree" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -13,5 +13,5 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.ChapterOne" parent="Base.Theme.ChapterOne" />
+    <style name="Base.Theme.ChapterThree." parent="Base.Theme.ChapterThree" />
 </resources>
