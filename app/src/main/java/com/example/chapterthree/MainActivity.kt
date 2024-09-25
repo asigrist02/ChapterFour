@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     )
 
     private var currentIndex = 0
+    private var correctAnswers = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,8 @@ class MainActivity : AppCompatActivity() {
 
             */
             checkAnswer(true)
+            binding.trueButton.isEnabled = false
+            binding.falseButton.isEnabled = false // disables the buttons on click
         }
 
 
@@ -65,15 +69,22 @@ class MainActivity : AppCompatActivity() {
 
             */
             checkAnswer(false)
+            binding.trueButton.isEnabled = false
+            binding.falseButton.isEnabled = false // disables the buttons on click
 
 
         }
 
         binding.nextButton.setOnClickListener {
+            if (currentIndex == questionBank.size -1){
+                computeScore()
+            }
             currentIndex = (currentIndex + 1) % questionBank.size
            // val questionTextResId = questionBank[currentIndex].textResId
            // binding.questionTextView.setText(questionTextResId)
             updateQuestion()
+            binding.trueButton.isEnabled = true
+            binding.falseButton.isEnabled = true // enables the buttons on click
 
         }
         binding.previousButton.setOnClickListener {
@@ -132,6 +143,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAnswer(userAnswer:Boolean){
         val correctAnswer = questionBank[currentIndex].answer
+        if (userAnswer == correctAnswer) {
+            correctAnswers++
+        }
+
+
 
         val messageResID = if (userAnswer == correctAnswer) {
             R.string.correct
@@ -146,4 +162,14 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun computeScore() {
+        val score = (correctAnswers.toDouble() / questionBank.size) * 100
+        val formattedScore = String.format("%.1f", score) + " %"
+        Toast.makeText(this, "Your Score: $formattedScore", Toast.LENGTH_LONG).show()
+        correctAnswers = 0
+        currentIndex = 0
+    }
+
+
 }
