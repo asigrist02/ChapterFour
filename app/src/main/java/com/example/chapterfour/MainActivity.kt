@@ -18,9 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     //lateinit' allows initializing a not-null property outside of a constructor
 
-
-
-
     private var correctAnswers = 0
 
 
