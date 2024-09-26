@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.chapterthree"
+    namespace = "com.example.chapterfour"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.chapterthree"
+        applicationId = "com.example.chapterfour"
         minSdk = 34
         targetSdk = 34
         versionCode = 1
@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.activity.ktx)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

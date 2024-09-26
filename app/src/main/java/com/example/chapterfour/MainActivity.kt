@@ -1,13 +1,11 @@
-package com.example.chapterthree
+package com.example.chapterfour
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
-import com.example.chapterthree.databinding.ActivityMainBinding
+import com.example.chapterfour.databinding.ActivityMainBinding
 
 private const val  TAG = "MainActivity"
 
