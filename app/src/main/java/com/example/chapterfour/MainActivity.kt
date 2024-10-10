@@ -117,14 +117,12 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy() called")
     }
     private fun updateQuestion(){
-        // val questionTextResId = questionBank [currentIndex].textResId
         val questionTextResId = quizViewModel.currentQuestionText
         binding.questionTextView.setText(questionTextResId)
 
     }
 
     private fun checkAnswer(userAnswer:Boolean){
-        // val correctAnswer = questionBank[currentIndex].answer
         val correctAnswer = quizViewModel.currentQuestionAnswer
         if (userAnswer == correctAnswer) {
             correctAnswers++
