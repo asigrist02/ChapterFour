@@ -1,5 +1,6 @@
 package com.example.chapterseven
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -50,14 +51,6 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.falseButton.setOnClickListener {
-           /* Toast.makeText(
-                this,
-                R.string.incorrect_toast,
-                Toast.LENGTH_SHORT
-            )
-                .show()
-
-            */
             checkAnswer(false)
             binding.trueButton.isEnabled = false
             binding.falseButton.isEnabled = false // disables the buttons on click
@@ -74,6 +67,12 @@ class MainActivity : AppCompatActivity() {
             binding.trueButton.isEnabled = true
             binding.falseButton.isEnabled = true // enables the buttons on click
 
+        }
+
+        binding.cheatButton.setOnClickListener {
+            //start cheat activity
+            val intent = Intent(this,CheatActivity::class.java)
+            startActivity(intent)
         }
 
         // This next bit of code will add an OnClickListener for the TextView
