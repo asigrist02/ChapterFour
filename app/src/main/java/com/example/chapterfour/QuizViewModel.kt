@@ -9,6 +9,7 @@ const val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
 
 class QuizViewModel(private val savedStateHandle: SavedStateHandle):ViewModel() {
 
+
     /* init {
 
         Log.d(TAG, "ViewModel instance created")
