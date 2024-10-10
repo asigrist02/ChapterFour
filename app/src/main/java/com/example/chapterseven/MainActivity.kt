@@ -1,4 +1,4 @@
-package com.example.chapterfour
+package com.example.chapterseven
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.chapterfour.databinding.ActivityMainBinding
+import com.example.chapterseven.databinding.ActivityMainBinding
 
 private const val  TAG = "MainActivity"
 

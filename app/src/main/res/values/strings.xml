@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChapterFour</string>
+    <string name="app_name">ChapterSeven</string>
     <string name="question_text">Canberra is the capital of Australia!</string>
     <string name="correct_toast">TRUE</string>
     <string name="incorrect_toast">FALSE</string>
