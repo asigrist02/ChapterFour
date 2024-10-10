@@ -1,10 +1,12 @@
 package com.example.chapterseven
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.chapterseven.databinding.ActivityMainBinding
@@ -15,6 +17,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var trueButton: Button
     private lateinit var falseButton: Button
     private val quizViewModel: QuizViewModel by viewModels()
+
+    private val cheatLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        // Handle the result
+        if (result.resultCode == Activity.RESULT_OK) {
+            quizViewModel.isCheater =
+                result.data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+        }
+    }
 
     private lateinit var binding:ActivityMainBinding
     //lateinit' allows initializing a not-null property outside of a constructor
@@ -71,8 +83,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.cheatButton.setOnClickListener {
             //start cheat activity
-            val intent = Intent(this,CheatActivity::class.java)
-            startActivity(intent)
+            // val intent = Intent(this,CheatActivity::class.java)
+            val answerIsTrue = quizViewModel.currentQuestionAnswer
+            val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
+
+            // startActivity(intent)
+            cheatLauncher.launch(intent)
+
         }
 
         // This next bit of code will add an OnClickListener for the TextView
@@ -123,23 +140,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAnswer(userAnswer:Boolean){
         val correctAnswer = quizViewModel.currentQuestionAnswer
-        if (userAnswer == correctAnswer) {
-            correctAnswers++
-        }
 
-
-
-        val messageResID = if (userAnswer == correctAnswer) {
+       /* val messageResID = if (userAnswer == correctAnswer) {
             R.string.correct
         } else{
             R.string.incorrect
         }
 
-        Toast.makeText(this,
-            messageResID,
-            Toast.LENGTH_SHORT)
-            .show()
+        */
 
+        val messageResId = when {
+            quizViewModel.isCheater -> R.string.judgment_toast
+            userAnswer == correctAnswer -> R.string.correct_toast
+            else -> R.string.incorrect_toast
+        }
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
+            .show()
 
     }
 
