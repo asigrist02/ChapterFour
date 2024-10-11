@@ -28,6 +28,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    /* private val cheatLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val cheatedOnThisQuestion = result.data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+            if (cheatedOnThisQuestion) {
+                quizViewModel.markQuestionAsCheated() // Mark this question as cheated
+            }
+        }
+    }
+
+     */
+
     private lateinit var binding:ActivityMainBinding
     //lateinit' allows initializing a not-null property outside of a constructor
 
@@ -91,6 +103,7 @@ class MainActivity : AppCompatActivity() {
             cheatLauncher.launch(intent)
 
         }
+
         // Restore state from rotation/process death
         if (savedInstanceState != null){
             quizViewModel.isCheater = savedInstanceState.getBoolean(EXTRA_ANSWER_SHOWN, false)
@@ -98,6 +111,8 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Restoring cheat state: User has already cheated!")
             }
         }
+
+
 
         // This next bit of code will add an OnClickListener for the TextView
         binding.questionTextView.setOnClickListener {
@@ -119,6 +134,8 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putBoolean(EXTRA_ANSWER_SHOWN, quizViewModel.isCheater)
     }
+
+
 
 
     override fun onStart(){
@@ -151,6 +168,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     private fun checkAnswer(userAnswer:Boolean){
         val correctAnswer = quizViewModel.currentQuestionAnswer
 
@@ -171,6 +189,31 @@ class MainActivity : AppCompatActivity() {
             .show()
 
     }
+
+
+    /* private fun checkAnswer(userPressedTrue: Boolean) {
+        val correctAnswer = quizViewModel.currentQuestionAnswer
+
+        val messageResId = when {
+            quizViewModel.hasCheatedOnCurrentQuestion() -> {
+                // Show judgment toast if they cheated on the current question
+                R.string.judgment_toast
+            }
+            userPressedTrue == correctAnswer -> {
+                // Correct answer
+                R.string.correct_toast
+            }
+            else -> {
+                // Incorrect answer
+                R.string.incorrect_toast
+            }
+        }
+
+        // Display the corresponding toast message
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+    }
+
+     */
 
 
 
