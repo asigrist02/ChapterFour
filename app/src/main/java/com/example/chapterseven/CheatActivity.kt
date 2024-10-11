@@ -16,6 +16,7 @@ class CheatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCheatBinding
     private var answerIsTrue = false
+    private var answerShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +26,34 @@ class CheatActivity : AppCompatActivity() {
 
         answerIsTrue = intent.getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false)
 
-        binding.showAnswerButton.setOnClickListener {
-            val answerText = when {
-                answerIsTrue -> R.string.correct_toast
-                else -> R.string.incorrect_toast
+        if(savedInstanceState != null) {
+            answerShown = savedInstanceState.getBoolean(EXTRA_ANSWER_SHOWN, false)
+            if (answerShown){
+                showAnswer()
             }
-            binding.answerTextView.setText(answerText)
+        }
 
-            setAnswerShownResult(true)
+        binding.showAnswerButton.setOnClickListener {
+            showAnswer()
+            answerShown = true
+            setAnswerShownResult(true) // Inform MainActivity that the answer was shown
 
         }
 
 
+    }
+    override fun onSaveInstanceState(outState:Bundle){
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(EXTRA_ANSWER_SHOWN, answerShown)
+    }
+    private fun showAnswer(){
+        val answerText = when {
+            answerIsTrue -> R.string.correct_toast
+            else -> R.string.incorrect_toast
+        }
+        binding.answerTextView.setText(answerText)
+
+        setAnswerShownResult(true)
     }
 
     private fun setAnswerShownResult(isAnswerShown: Boolean) {
