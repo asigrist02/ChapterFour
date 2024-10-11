@@ -30,11 +30,6 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle):ViewModel() 
         Question(R.string.question_asia, true)
 
     )
-    private val cheatStatusKey = "CHEAT_STATUS_KEY"
-    private var cheatStatus: BooleanArray
-        get() = savedStateHandle.get(cheatStatusKey) ?: BooleanArray(questionBank.size)
-        set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
-
 
     var isCheater: Boolean
         get() = savedStateHandle.get(IS_CHEATER_KEY) ?: false
@@ -50,17 +45,6 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle):ViewModel() 
     val currentQuestionText: Int
         get() = questionBank[currentIndex].textResId
 
-    // Track if the user cheated on current question
-    fun hasCheatedOnCurrentQuestion(): Boolean {
-        return cheatStatus[currentIndex]
-    }
-
-    // Mark the current question as cheated
-    fun markQuestionAsCheated() {
-        cheatStatus[currentIndex] = true
-        savedStateHandle.set(cheatStatusKey, cheatStatus) // Save updated status
-    }
-
     fun moveToNext(){
         currentIndex = (currentIndex + 1) % questionBank.size
 
@@ -68,7 +52,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle):ViewModel() 
 
     companion object {
         private const val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
-        private const val  IS_CHEAT_KEY = "IS_CHEATER_KEY"
+        private const val  IS_CHEATER_KEY = "IS_CHEATER_KEY"
     }
 
 }
