@@ -91,6 +91,13 @@ class MainActivity : AppCompatActivity() {
             cheatLauncher.launch(intent)
 
         }
+        // Restore state from rotation/process death
+        if (savedInstanceState != null){
+            quizViewModel.isCheater = savedInstanceState.getBoolean(EXTRA_ANSWER_SHOWN, false)
+            if (quizViewModel.isCheater){
+                Log.d(TAG, "Restoring cheat state: User has already cheated!")
+            }
+        }
 
         // This next bit of code will add an OnClickListener for the TextView
         binding.questionTextView.setOnClickListener {
@@ -105,6 +112,12 @@ class MainActivity : AppCompatActivity() {
       //  val questionTextResId = questionBank [currentIndex].textResId
       //  binding.questionTextView.setText(questionTextResId)
         updateQuestion()
+    }
+
+    // Save the cheat state in MainActivity
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(EXTRA_ANSWER_SHOWN, quizViewModel.isCheater)
     }
 
 
